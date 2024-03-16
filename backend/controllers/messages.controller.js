@@ -6,6 +6,7 @@ export const sendMessage = async(req,res)=>{
     const {id:receiverId} = req.params;
     const {_id:senderId} = req.user;
     // console.log("This is the senderId that I got: ",senderId);
+    
     try {
       let conversation = await  Conversation.findOne({
         participants:{$all: [senderId,receiverId] }
@@ -24,7 +25,9 @@ export const sendMessage = async(req,res)=>{
       // if (newMessage){
         conversation.messages.push(newMessage._id)
       // } 
-      await conversation.save();
+      // await conversation.save();
+
+      await Promise.all([conversation.save(),newMessage.save()]);
       // await conversation.save();
       
 

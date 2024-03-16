@@ -22,7 +22,8 @@ const userSchema = new mongoose.Schema({
     },
     language:{
         type:String,
-        required:true
+        required:true,
+        default: "en"
     },
     profilePic:{
         type:String,
